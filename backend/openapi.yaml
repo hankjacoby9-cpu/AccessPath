@@ -1,0 +1,454 @@
+openapi: 3.0.3
+info:
+  title: AccessPath API
+  version: 0.1.0
+paths:
+  /api/v1/auth/login:
+    post:
+      operationId: v1_auth_login_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/auth/logout:
+    post:
+      operationId: v1_auth_logout_create
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/me:
+    get:
+      operationId: v1_auth_me_retrieve
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/classes:
+    get:
+      operationId: v1_classes_list
+      description: GET my classes. POST creates a class and makes me its professor.
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+          description: ''
+    post:
+      operationId: v1_classes_create
+      description: GET my classes. POST creates a class and makes me its professor.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Class'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Class'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+  /api/v1/classes/{class_id}/lectures:
+    get:
+      operationId: v1_classes_lectures_list
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lecture'
+          description: ''
+    post:
+      operationId: v1_classes_lectures_create
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Lecture'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lecture'
+          description: ''
+  /api/v1/classes/{class_id}/members:
+    get:
+      operationId: v1_classes_members_list
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Membership'
+          description: ''
+  /api/v1/classes/{class_id}/members/{membership_id}:
+    patch:
+      operationId: v1_classes_members_partial_update
+      description: PATCH changes a role. DELETE removes someone. Both refuse to remove
+        the last professor.
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: membership_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleChange'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleChange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRoleChange'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Membership'
+          description: ''
+    delete:
+      operationId: v1_classes_members_destroy
+      description: PATCH changes a role. DELETE removes someone. Both refuse to remove
+        the last professor.
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: membership_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+        '409':
+          description: No response body
+  /api/v1/onboarding:
+    post:
+      operationId: v1_onboarding_create
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Onboarding'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Onboarding'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Onboarding'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    BlankEnum:
+      enum:
+      - ''
+    Class:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        subject:
+          type: string
+          maxLength: 200
+        course_code:
+          type: string
+          maxLength: 50
+        term:
+          type: string
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        my_role:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - my_role
+      - name
+    Lecture:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        ta_context:
+          type: string
+          description: What this lecture covers and what students should take away.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - title
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+      required:
+      - email
+      - id
+      - name
+      - role
+      - status
+      - user
+    Onboarding:
+      type: object
+      properties:
+        onboarding_role:
+          $ref: '#/components/schemas/OnboardingRoleEnum'
+        onboarding_subject:
+          type: string
+          maxLength: 200
+        name:
+          type: string
+          maxLength: 200
+      required:
+      - onboarding_role
+    OnboardingRoleEnum:
+      enum:
+      - teach
+      - assist
+      type: string
+      description: |-
+        * `teach` - I teach a class
+        * `assist` - I assist (TA)
+    PatchedRoleChange:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+    RoleEnum:
+      enum:
+      - professor
+      - ta
+      type: string
+      description: |-
+        * `professor` - Professor
+        * `ta` - TA
+    StatusEnum:
+      enum:
+      - active
+      - removed
+      type: string
+      description: |-
+        * `active` - Active
+        * `removed` - Removed
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        purdue_verified:
+          type: boolean
+          readOnly: true
+        onboarding_role:
+          oneOf:
+          - $ref: '#/components/schemas/OnboardingRoleEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        onboarding_subject:
+          type: string
+          maxLength: 200
+        onboarding_completed:
+          type: boolean
+          readOnly: true
+      required:
+      - email
+      - id
+      - onboarding_completed
+      - purdue_verified
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

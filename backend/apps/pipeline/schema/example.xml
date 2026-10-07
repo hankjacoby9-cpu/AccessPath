@@ -1,0 +1,15 @@
+<!-- Example node XML. Engineer C owns this format. Every lane builds against this file. -->
+<document lecture="lec_4" source="dynamics_work_energy.pdf" prompt_version="proc-v1">
+  <node id="n1" kind="text" page="1" confidence="0.96">
+    Work is the integral of force along a path.
+  </node>
+  <node id="n2" kind="equation" page="2" confidence="0.62" asset="eq_002.png">
+    <latex>W = \int_{s_1}^{s_2} F \cos\theta \, ds</latex>
+  </node>
+  <node id="n3" kind="graph" page="3" confidence="0.41" asset="fig_003.png">
+    <description>Force on the y axis against displacement on the x axis. The area under the curve is the work done.</description>
+  </node>
+  <node id="n4" kind="code" page="4" confidence="0.93" language="python">
+    <code>work = sum(f * dx for f, dx in zip(forces, steps))</code>
+  </node>
+</document>

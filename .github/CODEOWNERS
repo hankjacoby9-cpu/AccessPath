@@ -1,0 +1,13 @@
+# Replace the placeholders with each engineer's GitHub username after kickoff.
+# Lane A, platform and identity
+/backend/config/        @engineer-a
+/backend/apps/accounts/ @engineer-a
+/backend/apps/classes/  @engineer-a
+/backend/apps/storage/  @engineer-a
+# Lane B, ingestion
+/backend/apps/uploads/  @engineer-b
+# Lane C, AI processing
+/backend/apps/pipeline/ @engineer-c
+# Lane D, review and export
+/backend/apps/review/   @engineer-d
+/backend/apps/exports/  @engineer-d
