@@ -59,7 +59,7 @@ functions listed here, never by reaching into another app's internals.
 | `uploads` | B | SourceFile, ProcessingJob, ParsedDocument, file routing | `tasks.convert_source_file` |
 | `pipeline` | C | Prompts, model router, node XML schema, LLMCall cost log | `service.revise`, `tasks.process_document` |
 | `review` | D | Node, NodeVersion, Comment, ReviewAction, state machine | `state_machine.transition`, `bulk_approve` |
-| `exports` | D | HTML export | `tasks.build_html_export` |
+| `exports` | E | Accessible HTML export (MathML, figures, tables), accessibility checks | `tasks.build_html_export` |
 
 ## Rules baked into the code
 
@@ -77,5 +77,5 @@ Built and tested: login, logout, me, onboarding, create and list classes, list m
 roles and remove members (with the last professor rule), lectures, every model in the plan,
 the review state machine with bulk approve, file routing, the S3 handler, Docker, CI.
 
-Stubs marked `TODO (Engineer X)`: the convert task (B), process and revise (C), HTML export (D),
+Stubs marked `TODO (Engineer X)`: the convert task (B), process and revise (C), HTML export (E),
 invites and Purdue email verification (A), and all upload, review and export endpoints.
