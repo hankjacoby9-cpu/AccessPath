@@ -3,11 +3,17 @@
 Django 5 + Django REST Framework, Celery + Redis for background jobs, PostgreSQL, and one
 private S3 bucket with a folder per class.
 
+> **New to this project? Read [docs/START-HERE.md](docs/START-HERE.md) first.** It explains the
+> whole thing in plain English and links to a guide for your lane.
+
 ## Run it
 
 ### Option 1. Without Docker (fastest)
 
 Uses a local SQLite file instead of Postgres. Fine for working on models, endpoints and tests.
+You need Python 3.12. The first install takes a few minutes because the file conversion tools are large.
+
+**Mac or Linux**
 
 ```bash
 cd backend
@@ -16,9 +22,27 @@ source .venv/bin/activate
 pip install -r requirements-dev.txt
 cp .env.example .env
 python manage.py migrate
-python manage.py createsuperuser
+python manage.py seed_demo
 python manage.py runserver
 ```
+
+**Windows (PowerShell)**
+
+```powershell
+cd backend
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements-dev.txt
+copy .env.example .env
+python manage.py migrate
+python manage.py seed_demo
+python manage.py runserver
+```
+
+If PowerShell refuses to run `Activate.ps1`, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.
+
+`seed_demo` creates demo logins `prof@demo.edu` and `ta@demo.edu`, both with password
+`demo-password-123`, plus a class, a lecture and six nodes to look at.
 
 ### Option 2. With Docker (the full stack)
 
@@ -28,6 +52,7 @@ Runs Django, a Celery worker, Postgres, Redis and MinIO (a local stand-in for S3
 cd backend
 cp .env.example .env
 docker compose up
+docker compose exec web python manage.py seed_demo
 ```
 
 Then open:
