@@ -1,0 +1,11 @@
+# AccessPath
+
+Turns course materials into accessible HTML. AI writes the first draft of every figure,
+equation and text block. TAs and professors review and approve before anything ships.
+
+| Folder | What it is |
+|---|---|
+| `backend/` | Django API, Celery workers, PostgreSQL, S3. See [backend/README.md](backend/README.md). |
+| `frontend/` | Coming next. |
+
+Backend plan for the team: https://claude.ai/artifact/5GkNuvBh5HFiTBqueF1JFM
