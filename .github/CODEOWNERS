@@ -8,6 +8,7 @@
 /backend/apps/uploads/  @engineer-b
 # Lane C, AI processing
 /backend/apps/pipeline/ @engineer-c
-# Lane D, review and export
+# Lane D, review
 /backend/apps/review/   @engineer-d
-/backend/apps/exports/  @engineer-d
+# Lane E, export and accessibility
+/backend/apps/exports/  @engineer-e

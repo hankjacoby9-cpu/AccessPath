@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     "apps.uploads",
     # Lane C, AI processing
     "apps.pipeline",
-    # Lane D, review and export
+    # Lane D, review
     "apps.review",
+    # Lane E, export and accessibility
     "apps.exports",
 ]
 
